@@ -1,0 +1,20 @@
+{
+    "name": "boxalino-integration-gcp",
+    "version": "1.0.0",
+    "private": true,
+    "engines": {
+        "node": ">=8.0.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/boxalino/integration-gcp.git"
+      },
+    "dependencies": {
+        "@google-cloud/bigquery": "^1.3.0",
+        "@google-cloud/storage": "1.6.0"
+    },
+    "cloud-repo-tools": {
+        "requiresKeyFile": true,
+        "requiresProjectId": true
+    }
+}

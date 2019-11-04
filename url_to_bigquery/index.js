@@ -15,11 +15,12 @@ const filePath = '';
  */
 const Storage = require('@google-cloud/storage');
 const BigQuery = require('@google-cloud/bigquery');
+const request = require('request');
 const storage = Storage();
 const bigquery = new BigQuery();
 const bucket = storage.bucket(bucketName);
-const file = bucket.file(filePath);
-const request = require('request');
+const gcsFile = bucket.file(filePath);
+
 
 
 /**
@@ -58,7 +59,7 @@ function pipeFileToGCS() {
     if(fileFormat=='CSV')
     {
         request.get(fileUrl)
-        .pipe(blob.createWriteStream({
+        .pipe(gcsFile.createWriteStream({
             metadata: {
                 contentType: 'text/csv'
             }
@@ -74,7 +75,7 @@ function pipeFileToGCS() {
     if(fileFormat=='JSON')
     {
         request.get(fileUrl)
-        .pipe(blob.createWriteStream({
+        .pipe(gcsFile.createWriteStream({
             metadata: {
                 contentType: 'application/json'
             }

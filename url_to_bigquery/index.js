@@ -22,7 +22,6 @@ const bucket = storage.bucket(bucketName);
 const gcsFile = bucket.file(filePath);
 
 
-
 /**
  * Creates a BigQuery load job to load a file from Cloud Storage and write the data into BigQuery.
  * 1. Gets the file from the specified URL

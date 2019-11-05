@@ -4,13 +4,13 @@ View the [source code][code].
 
 [code]: ./index.js
 
-Before continue with the tutorial, make sure you have the following variables known:
+Before continue with the tutorial, make sure you have the following data known:
 1. bigqueryDataset - an existing dataset within your project 
 2. bigqueryTable   - the table name to store the loaded data
 3. fileUrl         - file download URL; must have public access 
 4. fileFormat      - JSON or CSV
-5. bucketName      - the bucket where the file is stored
-6. filePath        - file path + file name + format (relative path)
+5. bucketName      - the bucket where the file is stored (ex: project-bucket)
+6. filePath        - file path + file name + format (relative path) (ex: boxalino/datasync/file-to-upload.csv)
 
 It is helpful to also pay attention to the **metadata** of creating the BigQuery table.
 Depending on your data format (CSV, JSON) please update (or set):

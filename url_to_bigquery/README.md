@@ -4,7 +4,7 @@ View the [source code][code].
 
 [code]: ./index.js
 
-Before the code is used, the following data-constants **must** be set:
+Before continue with the tutorial, make sure you have the following variables known:
 1. bigqueryDataset - an existing dataset within your project 
 2. bigqueryTable   - the table name to store the loaded data
 3. fileUrl         - file download URL; must have public access 
@@ -33,7 +33,13 @@ Functions for your project.
 
 5. Use "Node.js 8" for the Runtime option
 
-5. In index.js edit view copy-paste the [source code][code] AND set the constants required
+5. In index.js edit view copy-paste the [source code][code]. The following data-constants **must** be set:
+- bigqueryDataset - an existing dataset within your project 
+- bigqueryTable   - the table name to store the loaded data (if it exists, it will be rewritten)
+- fileUrl         - file download URL; must have public access 
+- fileFormat      - JSON or CSV
+- bucketName      - the bucket where the file is stored
+- filePath        - file path + file name + format (relative path)
 
 6. In package.json copy the JSON definition
 
@@ -51,9 +57,10 @@ Functions for your project.
 
 8. In the advanced options, select the region **europe-west1** (same as your dataset), a reasonable timeout (60-180), and use your App Engine service account (or create a dedicated one)
     
-9. Save the function by clicking on "create"
+9. Save the function by clicking on **"create"**
 
-A deployment will start in the Cloud Functions view. Once it is confirmed that it run without any issues, you can use the trigger defined (URL) to trigger the process.
+A deployment will start in the Cloud Functions view. If there are issues, please check your logs. Once it is confirmed that it run without any issues, you can use the trigger defined (URL) to trigger the process. (it can also be located under the _Trigger_ tab of your function view)
+
 The trigger URL looks like: https://europe-west1-<project-id>.cloudfunctions.net/function-<function-name>
 
 10. Query the BigQuery table to check that you can see that the data has been inserted successfully.

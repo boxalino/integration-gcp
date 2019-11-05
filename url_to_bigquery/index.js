@@ -32,7 +32,7 @@ const gcsFile = bucket.file(filePath);
  * @param {object} data The event payload.
  * @param {object} context The event metadata.
  */
-exports.loadFileToBQ = (data, context) => {
+exports.loadFileToBQfromUrl = (data, context) => {
    
     console.log("Downloading file from URL");
     pipeFileToGCS();

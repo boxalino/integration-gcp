@@ -1,7 +1,8 @@
 # GCP Integrations - Load file from URL to BigQuery table
 
 View the [source code][code].
-[code]: index.js
+
+[code]: ./index.js
 
 Before the code is used, the following data-constants **must** be set:
 1. bigqueryDataset - an existing dataset within your project 

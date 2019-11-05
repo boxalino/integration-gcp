@@ -33,7 +33,7 @@ Functions for your project.
 
 5. Use "Node.js 8" for the Runtime option
 
-5. In index.js edit view copy-paste the [source code][code]. The following data-constants **must** be set:
+6. In index.js edit view copy-paste the [source code][code]. The following data-constants **must** be set:
 - bigqueryDataset - an existing dataset within your project 
 - bigqueryTable   - the table name to store the loaded data (if it exists, it will be rewritten)
 - fileUrl         - file download URL; must have public access 
@@ -41,7 +41,7 @@ Functions for your project.
 - bucketName      - the bucket where the file is stored
 - filePath        - file path + file name + format (relative path)
 
-6. In package.json copy the JSON definition
+7. In package.json copy the JSON definition
 
 
         {
@@ -53,19 +53,19 @@ Functions for your project.
             }
         }
 
-7. Write the function name *loadFileToBQfromUrl* in the text field for "Function to Execute"
+8. Write the function name *loadFileToBQfromUrl* in the text field for "Function to Execute"
 
-8. In the advanced options, select the region **europe-west1** (same as your dataset), a reasonable timeout (60-180), and use your App Engine service account (or create a dedicated one)
+9. In the advanced options, select the region **europe-west1** (same as your dataset), a reasonable timeout (60-180), and use your App Engine service account (or create a dedicated one)
     
-9. Save the function by clicking on **"create"**
+10. Save the function by clicking on **"create"**
 
 A deployment will start in the Cloud Functions view. If there are issues, please check your logs. Once it is confirmed that it run without any issues, you can use the trigger defined (URL) to trigger the process. (it can also be located under the _Trigger_ tab of your function view)
 
 The trigger URL looks like: https://europe-west1-<project-id>.cloudfunctions.net/function-<function-name>
 
-10. Query the BigQuery table to check that you can see that the data has been inserted successfully.
+11. Query the BigQuery table to check that you can see that the data has been inserted successfully.
 
-11. The created function can be triggered whenever you want to update the table; It can also be edited from the Cloud Functions view.
+12. The created function can be triggered whenever you want to update the table; It can also be edited from the Cloud Functions view.
 
 
 [Cloud Functions quickstart guide]: https://cloud.google.com/functions/docs/quickstart-console

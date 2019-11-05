@@ -55,6 +55,13 @@ exports.loadFileToBQ = (data, context) => {
 };
 
 
+/**
+ * Download file to GCS bucket
+ * 
+ * For more samples/adjustments, please check the official documentation
+ * https://cloud.google.com/nodejs/docs/reference/storage/1.3.x/File
+ * https://cloud.google.com/nodejs/docs/reference/storage/1.6.x/Bucket
+ */
 function pipeFileToGCS() {
     if(fileFormat=='CSV')
     {
@@ -65,10 +72,10 @@ function pipeFileToGCS() {
             }
         }))
         .on("error", (err) => {
-            console.error(`error occurred`);
+            console.error(`Error on file download`);
         })
         .on('finish', () => {
-            console.info(`success`);
+            console.info(`File downloaded successfully`);
         });
     }
 
@@ -81,21 +88,18 @@ function pipeFileToGCS() {
             }
         }))
         .on("error", (err) => {
-            console.error(`error occurred`);
+            console.error(`Error on file download`);
         })
         .on('finish', () => {
-            console.info(`success`);
+            console.info(`File downloaded successfully`);
         });
-    }
-      
+    }      
 };
 
 /**
+ * writeDisposition option will empty the table (if exists) and insert new content; 
  * More configurations options available on the official documentation
  * https://cloud.google.com/bigquery/docs/reference/rest/v2/Job#JobConfigurationLoad
- * 
- * the writeDisposition option will empty the table (if exists) and insert new content; 
- * for other option - please check the documentation above
  */
 function getMetadata() {
     switch(fileFormat) {
@@ -107,7 +111,8 @@ function getMetadata() {
                 location: 'EU',
                 fieldDelimiter: ',',
                 encoding: 'UTF-8',
-                writeDisposition: 'WRITE_TRUNCATE'
+                writeDisposition: 'WRITE_TRUNCATE',
+                allowQuotedNewlines: true
               };
           break;
         case 'JSON':
@@ -124,7 +129,8 @@ function getMetadata() {
             var metadata = {
                 location: 'EU',
                 encoding: 'UTF-8',
-                writeDisposition: 'WRITE_TRUNCATE'
+                writeDisposition: 'WRITE_TRUNCATE',
+                allowQuotedNewlines: true
             }
     }
 

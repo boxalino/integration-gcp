@@ -16,10 +16,10 @@ const filePath = '';
  * https://cloud.google.com/nodejs/docs/reference/storage/1.3.x/File
  * https://cloud.google.com/nodejs/docs/reference/storage/1.6.x/Bucket
  * 
- * @param {object} data The event payload.
- * @param {object} context The event metadata.
+ * @param {Object} req request context.
+ * @param {Object} res response context. 
  */
-exports.downloadFileToGCS = (data, context) => {
+exports.downloadFileToGCS = (req, res) => {
     
     /**
      * GCP elements
@@ -31,39 +31,25 @@ exports.downloadFileToGCS = (data, context) => {
     const gcsFile = bucket.file(filePath);
 
     console.log("Downloading file from URL");
-    if(fileFormat=='CSV')
-    {
-        request.get(fileUrl)
-        .pipe(gcsFile.createWriteStream({
-            metadata: {
-                resumable: false, //ONLY FOR FILES LESS THAN 10MB!
-                contentType: 'text/csv'
-            }
-        }))
-        .on("error", (err) => {
-            console.error(`Error on file download`);
-        })
-        .on('finish', () => {
-            console.info(`File downloaded successfully`);
-        });
+    var type = 'application/json';
+    if(fileFormat == 'CSV'){
+        type = 'text/csv';
     }
 
-    if(fileFormat=='JSON')
-    {
-        request.get(fileUrl)
-        .pipe(gcsFile.createWriteStream({
-            metadata: {
-                resumable: false, //ONLY FOR FILES LESS THAN 10MB!
-                contentType: 'application/json'
-            }
-        }))
-        .on("error", (err) => {
-            console.error(`Error on file download`);
-        })
-        .on('finish', () => {
-            console.info(`File downloaded successfully`);
-        });
-    }      
+    request.get(fileUrl)
+    .pipe(gcsFile.createWriteStream({
+        metadata: {
+            resumable: false, //ONLY FOR FILES LESS THAN 10MB!
+            contentType: type
+        }
+    }))
+    .on("error", (err) => {
+        console.error(`Error on file download`);
+    })
+    .on('finish', () => {
+        console.info(`File downloaded successfully`);
+    });
 
     console.log("File downloaded");
+    res.send("Finish execution");
 };

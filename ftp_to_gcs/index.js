@@ -22,10 +22,10 @@ const ftpConfig = {
  * https://cloud.google.com/nodejs/docs/reference/storage/1.3.x/File
  * https://cloud.google.com/nodejs/docs/reference/storage/1.6.x/Bucket
  * 
- * @param {object} data The event payload.
- * @param {object} context The event metadata.
+ * @param {Object} req request context.
+ * @param {Object} res response context. 
  */
-exports.downloadFtpFileToGCS = (data, context) => {
+exports.downloadFtpFileToGCS = (req, res) => {
     
     const Storage = require('@google-cloud/storage');
     const FtpClient = require('ftp');
@@ -36,42 +36,30 @@ exports.downloadFtpFileToGCS = (data, context) => {
     
 
     console.log("Downloading file from URL");
-    if(fileFormat=='CSV')
-    {
-        client.on('ready', function(){
-            client.get(ftpFilePath, function(err,stream){
-                if (err){
-                    console.log("Error on file download: " + err);
-                    throw err;
-                }
-                stream.once('close', function(){client.end();});
-                stream.pipe(gcsFile.createWriteStream({
-                    metadata: {
-                        resumable: false, //ONLY FOR FILES LESS THAN 10MB!
-                        contentType: 'text/csv'
-                    }
-                }));
-            });
-        });
+
+    var type = 'application/json';
+    if(fileFormat == 'CSV'){
+        type = 'text/csv';
     }
 
-    if(fileFormat=='JSON')
-    {
-        request.get(fileUrl)
-        .pipe(gcsFile.createWriteStream({
-            metadata: {
-                resumable: false, //ONLY FOR FILES LESS THAN 10MB!
-                contentType: 'application/json'
+    client.on('ready', function(){
+        client.get(ftpFilePath, function(err,stream){
+            if (err){
+                console.log("Error on file download: " + err);
+                throw err;
             }
-        }))
-        .on("error", (err) => {
-            console.error(`Error on file download`);
-        })
-        .on('finish', () => {
-            console.info(`File downloaded successfully`);
+            stream.once('close', function(){client.end();});
+            stream.pipe(gcsFile.createWriteStream({
+                metadata: {
+                    resumable: false, //ONLY FOR FILES LESS THAN 10MB!
+                    contentType: type
+                }
+            }));
         });
-    }
+    });
 
     client.connect(ftpConfig);
     console.log("File downloaded");
+    
+    res.send("Finish execution");
 };

@@ -28,10 +28,10 @@ const gcsFile = bucket.file(filePath);
  * 2. Uploads the file to GCS in a bucket defined for this job
  * 3. Loads the file from GCS to BQ
  * 
- * @param {object} data The event payload.
- * @param {object} context The event metadata.
+ * @param {Object} req request context.
+ * @param {Object} res response context. 
  */
-exports.loadFileToBQfromUrl = (data, context) => {
+exports.loadFileToBQfromUrl = (req, res) => {
    
     console.log("Downloading file from URL");
     pipeFileToGCS();
@@ -50,7 +50,7 @@ exports.loadFileToBQfromUrl = (data, context) => {
             console.error('ERROR:', err);
         });
 
-    console.log(`Loading from gs://${bucketName}/${filePath} into ${bigqueryDataset}.${bigqueryTable}`);
+    res.send(`Loaded from gs://${bucketName}/${filePath} into ${bigqueryDataset}.${bigqueryTable}`);
 };
 
 

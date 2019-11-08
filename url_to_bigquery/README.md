@@ -4,7 +4,7 @@ View the [source code][code].
 
 [code]: ./index.js
 
-Before continue with the tutorial, make sure you have the following data known:
+Before continue with the tutorial, make sure you have the following details known:
 1. bigqueryDataset - an existing dataset within your project 
 2. bigqueryTable   - the table name to store the loaded data
 3. fileUrl         - file download URL; must have public access 
@@ -61,12 +61,28 @@ Functions for your project.
 
 A deployment will start in the Cloud Functions view. If there are issues, please check your logs. Once it is confirmed that it run without any issues, you can use the trigger defined (URL) to trigger the process. (it can also be located under the _Trigger_ tab of your function view)
 
-The trigger URL looks like: https://europe-west1-<project-id>.cloudfunctions.net/function-<function-name>
+The trigger URL looks like: https://europe-west1-**project-id**.cloudfunctions.net/function-**function-name**
 
 11. Query the BigQuery table to check that you can see that the data has been inserted successfully.
 
 12. The created function can be triggered whenever you want to update the table; It can also be edited from the Cloud Functions view.
 
 
+## Trigger Automation
+
+In the GCP environment it is possible to define **cron jobs** which will automatically trigger the HTTP event of the above-created function. For the pricing, please check the [Cloud Scheduler pricing].
+
+1. Follow the [Cloud Scheduler quickstart guide] to setup Cloud Scheduler for your project.
+2. In your GCP project, navigate to Scheduler
+3. If it`s your first cron job on the project, click on "Create Job"
+4. Set the name, trigger frequency and the timezone of your choice. If you need assistance setting up your cron schedule expression, please check the [scheduler helper]
+5. Set **HTTP** as the *Target*. In the *URL* field copy-paste the cloud function trigger URL.
+6. Once saved, you can trigger it manually or wait for the cron to do it.
+
+
+
 [Cloud Functions quickstart guide]: https://cloud.google.com/functions/docs/quickstart-console
 [BigQuery Job Configuration guidelines]: https://cloud.google.com/bigquery/docs/reference/rest/v2/Job#JobConfigurationLoad
+[Cloud Scheduler quickstart guide]: https://cloud.google.com/scheduler/docs/quickstart/
+[Cloud Scheduler pricing]: https://cloud.google.com/scheduler/pricing
+[scheduler helper]: https://crontab.guru/

@@ -49,7 +49,7 @@ Functions for your project.
 
 A deployment will start in the Cloud Functions view. If there are issues, please check your logs. Once it is confirmed that it run without any issues, you can use the trigger defined (URL) to trigger the process. (it can also be located under the _Trigger_ tab of your function view)
 
-The trigger URL looks like: https://europe-west1-<project-id>.cloudfunctions.net/function-<function-name>
+The trigger URL looks like: https://europe-west1-**project-id**.cloudfunctions.net/function-**function-name**
 
 11. Open your bucket to check that the file has been downloaded successfully.
 

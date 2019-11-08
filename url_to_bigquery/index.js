@@ -67,7 +67,9 @@ function pipeFileToGCS() {
         request.get(fileUrl)
         .pipe(gcsFile.createWriteStream({
             metadata: {
-                contentType: 'text/csv'
+                resumable: false, //ONLY FOR FILES LESS THAN 10MB!
+                contentType: 'text/csv',
+                
             }
         }))
         .on("error", (err) => {
@@ -83,6 +85,7 @@ function pipeFileToGCS() {
         request.get(fileUrl)
         .pipe(gcsFile.createWriteStream({
             metadata: {
+                resumable: false, //ONLY FOR FILES LESS THAN 10MB!
                 contentType: 'application/json'
             }
         }))

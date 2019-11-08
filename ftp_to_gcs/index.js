@@ -30,7 +30,7 @@ exports.downloadFtpFileToGCS = (data, context) => {
     const Storage = require('@google-cloud/storage');
     const FtpClient = require('ftp');
     const storage = Storage();
-    const client = new FtpClient(ftpConfig);
+    const client = new FtpClient();
     const bucket  = storage.bucket(bucketName);
     const gcsFile = bucket.file(filePath);
     
@@ -53,8 +53,6 @@ exports.downloadFtpFileToGCS = (data, context) => {
                 }));
             });
         });
-
-        client.connect();
     }
 
     if(fileFormat=='JSON')
@@ -72,7 +70,8 @@ exports.downloadFtpFileToGCS = (data, context) => {
         .on('finish', () => {
             console.info(`File downloaded successfully`);
         });
-    }      
+    }
 
+    client.connect(ftpConfig);
     console.log("File downloaded");
 };

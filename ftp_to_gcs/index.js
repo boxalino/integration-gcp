@@ -35,7 +35,7 @@ exports.downloadFtpFileToGCS = (req, res) => {
     const gcsFile = bucket.file(filePath);
     
 
-    console.log("Downloading file from URL");
+    console.log("Downloading file from FTP");
 
     var type = 'application/json';
     if(fileFormat == 'CSV'){
